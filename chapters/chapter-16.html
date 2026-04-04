@@ -138,13 +138,38 @@
   <p class="chapter-intro">Your app is ready — let's deploy it to the web! We'll configure production settings and deploy to Render.</p>
 
 <h2>Installing Production Dependencies</h2>
+<p>Install the production dependencies:</p>
 
 <div class="code-block">
   <div class="code-header">
     <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>Terminal</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-bash">pip install gunicorn whitenoise dj-database-url python-decouple</code></pre>
+  <pre><code class="language-bash">pip install gunicorn</code></pre>
+</div>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>Terminal</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-bash">pip install whitenoise</code></pre>
+</div>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>Terminal</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-bash">pip install dj-database-url</code></pre>
+</div>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>Terminal</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-bash">pip install python-decouple</code></pre>
 </div>
 
 <table><thead><tr><th>Package</th><th>Purpose</th></tr></thead><tbody><tr><td><code>gunicorn</code></td><td>Production WSGI server (replaces <code>runserver</code>)</td></tr><tr><td><code>whitenoise</code></td><td>Serves static files efficiently in production</td></tr><tr><td><code>dj-database-url</code></td><td>Parses database URLs (for cloud databases)</td></tr><tr><td><code>python-decouple</code></td><td>Reads environment variables from <code>.env</code> files</td></tr></tbody></table>
