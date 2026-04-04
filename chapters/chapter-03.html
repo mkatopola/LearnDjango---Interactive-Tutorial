@@ -275,16 +275,16 @@ def not_found(request):
 <div class="quiz-card">
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
-  <div class="quiz-inner" data-answer="C">
-    <p class="quiz-question">What decorator makes a view only accessible to logged-in users?</p>
-    <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>@csrf_exempt</span></div>
-<div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>@require_POST</span></div>
-<div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>@login_required</span></div>
-<div class="quiz-option" data-value="D" onclick="selectOption(this)"><span class="quiz-option-letter">D</span><span>@permission_required</span></div>
+  <div class="quiz-inner" data-answer="B">
+    <p class="quiz-question">What does the render() function do in a Django view?</p>
+    <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>Redirects to another URL</span></div>
+<div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>Renders a template with context data</span></div>
+<div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>Creates a new database record</span></div>
+<div class="quiz-option" data-value="D" onclick="selectOption(this)"><span class="quiz-option-letter">D</span><span>Validates form input</span></div>
 </div>
     <button class="quiz-check-btn" onclick="checkQuiz(this)">Check Answer</button>
     <div class="quiz-feedback quiz-feedback-correct">✓ Correct! Well done.</div>
-    <div class="quiz-feedback quiz-feedback-incorrect">✗ That's not right. The correct answer is C.</div>
+    <div class="quiz-feedback quiz-feedback-incorrect">✗ That's not right. The correct answer is B.</div>
   </div>
 </div>
 

@@ -1,12 +1,20 @@
 /* ===== LearnDjango - Global JS ===== */
 
-// ===== In-Memory Storage =====
+// ===== Storage Helpers =====
 var _memStore = {};
 function safeGet(key) {
-  return _memStore[key] || null;
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return _memStore[key] || null;
+  }
 }
 function safeSet(key, val) {
-  _memStore[key] = val;
+  try {
+    localStorage.setItem(key, val);
+  } catch (e) {
+    _memStore[key] = val;
+  }
 }
 
 // ===== Dark Mode =====
