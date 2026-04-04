@@ -133,9 +133,21 @@
   <h1>The Django ORM</h1>
   <div class="in-this-chapter">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
-    <ul><li>Querying objects with the ORM</li><li>Filtering and excluding</li><li>Creating and saving objects</li><li>Updating and deleting</li><li>Advanced queries and lookups</li></ul>
+    <ul><li>QuerySet basics</li><li>Querying objects with the ORM</li><li>Filtering and excluding</li><li>Creating and saving objects</li><li>Updating and deleting</li><li>Advanced queries and lookups</li></ul>
   </div>
   <p class="chapter-intro">The Django ORM (Object-Relational Mapper) lets you interact with your database using Python code instead of raw SQL.</p>
+
+<h2>QuerySet Basics</h2>
+<p>When you query your database in Django, you get a <strong>QuerySet</strong> — a collection of model objects that you can filter, order, and manipulate. QuerySets are lazy, meaning they don't execute database queries until you actually need the data (like when you iterate over them or call <code>list()</code>).</p>
+<p>The main methods you'll use are:</p>
+<ul>
+<li><code>.all()</code> — Get all objects</li>
+<li><code>.filter()</code> — Get objects matching criteria</li>
+<li><code>.exclude()</code> — Get objects that don't match criteria</li>
+<li><code>.get()</code> — Get a single object (raises exception if not found)</li>
+<li><code>.first()</code> — Get the first object matching criteria</li>
+<li><code>.count()</code> — Count matching objects</li>
+</ul>
 
 <h2>Getting All Objects</h2>
 <p>Use the <code>.all()</code> method on a model's manager to retrieve every record:</p>

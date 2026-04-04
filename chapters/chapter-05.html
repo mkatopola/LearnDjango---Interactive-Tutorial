@@ -133,9 +133,13 @@
   <h1>Models and the Database</h1>
   <div class="in-this-chapter">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
-    <ul><li>Defining a Model</li><li>Common field types</li><li>Creating and running migrations</li><li>The __str__ method</li><li>Model Meta options</li></ul>
+    <ul><li>What is a database?</li><li>Defining a Model</li><li>Common field types</li><li>Creating and running migrations</li><li>The __str__ method</li><li>Model Meta options</li></ul>
   </div>
   <p class="chapter-intro">Models are the foundation of your data layer. They define the structure of your database tables using Python classes.</p>
+
+<h2>What is a Database?</h2>
+<p>A <strong>database</strong> is a structured way to store and organize data so it can be easily accessed, managed, and updated. Think of it like a digital filing cabinet where information is stored in tables (like spreadsheets) with rows and columns.</p>
+<p>Django uses SQLite by default for development, which is a lightweight database that stores data in a single file. In production, you might use PostgreSQL, MySQL, or other databases. The beauty of Django's ORM (Object-Relational Mapping) is that your code works the same regardless of the underlying database.</p>
 
 <h2>Defining a Model</h2>
 <p>A Django model is a Python class that inherits from <code>models.Model</code>. Each attribute represents a database column. Let's create a <code>Post</code> model:</p>
