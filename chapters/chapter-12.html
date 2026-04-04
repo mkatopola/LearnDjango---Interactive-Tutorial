@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class-Based Views | LearnDjango</title>
+<meta name="description" content="Learn Django step by step — Class-Based Views">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/django.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<script src="../js/app.js"></script>
+</head>
+<body>
+<header class="global-header">
+  <div class="header-inner">
+    <a href="../index.html" class="header-logo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#092E20"/><path d="M17.5 6h3.2v14.4c-1.6.3-2.8.4-4.1.4-3.8 0-5.8-1.7-5.8-5 0-3.1 2.1-5.2 5.4-5.2.6 0 1 .1 1.3.2V6zm0 7.4c-.3-.1-.6-.2-1-.2-1.6 0-2.5 1-2.5 2.6 0 1.7.9 2.6 2.6 2.6.3 0 .6 0 .9-.1v-4.9zM24 22.5c0 2-1.3 3-3.8 3-1.2 0-2.2-.2-3-.5v-2.6c.8.4 1.8.6 2.6.6 1 0 1.4-.3 1.4-.9 0-.5-.5-.8-1.6-1.2-2-.8-2.6-1.6-2.6-3 0-1.9 1.3-3 3.6-3 1 0 1.8.2 2.4.4v2.5c-.7-.3-1.6-.5-2.3-.5-.9 0-1.2.3-1.2.8 0 .4.4.7 1.6 1.2 1.8.7 2.4 1.4 2.4 2.8z" fill="#fff" opacity=".3"/><path d="M10.2 9.6h3.2v10.8c0 2.9-.4 4.3-1.7 5.5-1.2 1.1-2.8 1.5-4.4 1.5l-.5-2.7c1.1-.2 2-.6 2.6-1.2.6-.6.8-1.3.8-2.9V9.6z" fill="#44B78B"/><circle cx="11.8" cy="7.2" r="1.9" fill="#44B78B"/></svg><span class="header-logo-text">LearnDjango</span></a>
+    <div class="header-actions">
+      <a href="https://github.com/django/django" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+      <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+    </div>
+  </div>
+</header>
+<nav class="sub-nav">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-left"><button class="chapter-menu-btn" onclick="openDropdown()">☰ Chapters</button></div>
+    <div class="sub-nav-center"><svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#092E20"/><path d="M8 7h2.4v8c0 2.1-.3 3.1-1.3 4-.9.8-2 1.1-3.2 1.1l-.4-2c.8-.2 1.5-.5 1.9-.9.5-.4.6-1 .6-2.1V7z" fill="#44B78B"/><circle cx="9.2" cy="5.4" r="1.4" fill="#44B78B"/><path d="M13 4.5h2.4v10.7c-1.2.2-2.1.3-3 .3-2.9 0-4.3-1.3-4.3-3.7 0-2.3 1.5-3.9 4-3.9.4 0 .7 0 1 .1V4.5zm0 5.5c-.2-.1-.5-.1-.7-.1-1.2 0-1.9.7-1.9 2 0 1.2.7 1.9 2 1.9.2 0 .4 0 .7-.1v-3.7z" fill="#fff" opacity=".4"/></svg><span>Chapter 12 — Class-Based Views</span></div>
+    <div class="sub-nav-right"><span>Track progress</span><button class="scroll-top-btn" onclick="scrollTop()" aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="18 15 12 9 6 15"/></svg></button></div>
+  </div>
+</nav>
+<div class="chapter-overlay" id="chapter-overlay" onclick="if(event.target===this)closeDropdown()">
+  <div class="chapter-dropdown">
+    <div class="dropdown-header">
+      <h3>Course Chapters</h3><span class="dropdown-progress">0/16 Chapters Complete</span>
+      <button class="dropdown-close" onclick="closeDropdown()" aria-label="Close">&times;</button>
+    </div>
+    <div class="chapter-grid"><a href="intro.html" class="chapter-grid-item " data-chapter="intro">
+  <div class="chapter-grid-number">i</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Intro</div><div class="chapter-grid-title">Overview &amp; Prerequisites</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-01.html" class="chapter-grid-item " data-chapter="ch01">
+  <div class="chapter-grid-number">1</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 1</div><div class="chapter-grid-title">Getting Started — Setting Up Django</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-02.html" class="chapter-grid-item " data-chapter="ch02">
+  <div class="chapter-grid-number">2</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 2</div><div class="chapter-grid-title">Understanding MVT Architecture</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-03.html" class="chapter-grid-item " data-chapter="ch03">
+  <div class="chapter-grid-number">3</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 3</div><div class="chapter-grid-title">Your First Views and URLs</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-04.html" class="chapter-grid-item " data-chapter="ch04">
+  <div class="chapter-grid-number">4</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 4</div><div class="chapter-grid-title">Working with Templates</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-05.html" class="chapter-grid-item " data-chapter="ch05">
+  <div class="chapter-grid-number">5</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 5</div><div class="chapter-grid-title">Models and the Database</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-06.html" class="chapter-grid-item " data-chapter="ch06">
+  <div class="chapter-grid-number">6</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 6</div><div class="chapter-grid-title">The Django ORM</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-07.html" class="chapter-grid-item " data-chapter="ch07">
+  <div class="chapter-grid-number">7</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 7</div><div class="chapter-grid-title">Django Admin Panel</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-08.html" class="chapter-grid-item " data-chapter="ch08">
+  <div class="chapter-grid-number">8</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 8</div><div class="chapter-grid-title">Forms and User Input</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-09.html" class="chapter-grid-item " data-chapter="ch09">
+  <div class="chapter-grid-number">9</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 9</div><div class="chapter-grid-title">User Authentication</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-10.html" class="chapter-grid-item " data-chapter="ch10">
+  <div class="chapter-grid-number">10</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 10</div><div class="chapter-grid-title">Full CRUD Operations</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-11.html" class="chapter-grid-item " data-chapter="ch11">
+  <div class="chapter-grid-number">11</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 11</div><div class="chapter-grid-title">Static Files and Media Uploads</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-12.html" class="chapter-grid-item active" data-chapter="ch12">
+  <div class="chapter-grid-number">12</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 12</div><div class="chapter-grid-title">Class-Based Views</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-13.html" class="chapter-grid-item " data-chapter="ch13">
+  <div class="chapter-grid-number">13</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 13</div><div class="chapter-grid-title">Django REST Framework — Building APIs</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-14.html" class="chapter-grid-item " data-chapter="ch14">
+  <div class="chapter-grid-number">14</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 14</div><div class="chapter-grid-title">API Authentication &amp; Permissions</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-15.html" class="chapter-grid-item " data-chapter="ch15">
+  <div class="chapter-grid-number">15</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 15</div><div class="chapter-grid-title">Signals and Custom Managers</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+<a href="chapter-16.html" class="chapter-grid-item " data-chapter="ch16">
+  <div class="chapter-grid-number">16</div>
+  <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 16</div><div class="chapter-grid-title">Deployment to Production</div></div>
+  <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</a>
+</div>
+  </div>
+</div>
+<main class="chapter-content">
+  <div class="chapter-badge-wrapper">
+    <div class="chapter-label">Chapter 12</div>
+    <div class="chapter-badge">12</div>
+  </div>
+  <h1>Class-Based Views</h1>
+  <div class="in-this-chapter">
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
+    <ul><li>What are Class-Based Views (CBVs)?</li><li>ListView and DetailView</li><li>CreateView and UpdateView</li><li>DeleteView</li><li>Comparing FBVs vs CBVs</li></ul>
+  </div>
+  <p class="chapter-intro">Class-Based Views (CBVs) provide a more structured, reusable way to write views. Let's refactor our task manager to use them.</p>
+
+<h2>What Are Class-Based Views?</h2>
+<p>Instead of writing view functions, you can use class-based views that inherit from Django's generic views. They handle common patterns like listing objects, creating forms, and deleting records — with far less code.</p>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>views.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python"># The function-based way (what we wrote before)
+@login_required
+def task_list(request):
+    tasks = Task.objects.filter(owner=request.user)
+    return render(request, &#x27;tasks/task_list.html&#x27;, {{&#x27;tasks&#x27;: tasks}})
+
+# The class-based way
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = &#x27;tasks/task_list.html&#x27;
+    context_object_name = &#x27;tasks&#x27;
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user)</code></pre>
+</div>
+
+<h2>ListView — Display a List</h2>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>tasks/views.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python">from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = &#x27;tasks/task_list.html&#x27;
+    context_object_name = &#x27;tasks&#x27;
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user)</code></pre>
+</div>
+
+<h2>CreateView — Add New Objects</h2>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>tasks/views.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python">from django.views.generic import CreateView
+from django.urls import reverse_lazy
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;due_date&#x27;]
+    template_name = &#x27;tasks/task_form.html&#x27;
+    success_url = reverse_lazy(&#x27;task_list&#x27;)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)</code></pre>
+</div>
+
+<h2>UpdateView — Edit Existing Objects</h2>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>tasks/views.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python">from django.views.generic import UpdateView
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    fields = [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;due_date&#x27;, &#x27;is_complete&#x27;]
+    template_name = &#x27;tasks/task_form.html&#x27;
+    success_url = reverse_lazy(&#x27;task_list&#x27;)
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user)</code></pre>
+</div>
+
+<h2>DeleteView — Remove Objects</h2>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>tasks/views.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python">from django.views.generic import DeleteView
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    template_name = &#x27;tasks/task_confirm_delete.html&#x27;
+    success_url = reverse_lazy(&#x27;task_list&#x27;)
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user)</code></pre>
+</div>
+
+<h2>URL Configuration for CBVs</h2>
+
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>tasks/urls.py</span></div>
+    <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+  </div>
+  <pre><code class="language-python"># tasks/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path(&#x27;&#x27;, views.TaskListView.as_view(), name=&#x27;task_list&#x27;),
+    path(&#x27;create/&#x27;, views.TaskCreateView.as_view(), name=&#x27;task_create&#x27;),
+    path(&#x27;&lt;int:pk&gt;/edit/&#x27;, views.TaskUpdateView.as_view(), name=&#x27;task_update&#x27;),
+    path(&#x27;&lt;int:pk&gt;/delete/&#x27;, views.TaskDeleteView.as_view(), name=&#x27;task_delete&#x27;),
+]</code></pre>
+</div>
+
+<div class="info-box"><strong>Note:</strong> CBVs use <code>.as_view()</code> in URL patterns to convert the class into a callable view function.</div>
+
+<h2>FBVs vs CBVs Comparison</h2>
+
+<table><thead><tr><th>Aspect</th><th>Function-Based Views</th><th>Class-Based Views</th></tr></thead><tbody><tr><td>Simplicity</td><td>Easy to read and understand</td><td>More abstract, steeper learning curve</td></tr><tr><td>Reusability</td><td>Less reusable (copy/paste)</td><td>Highly reusable through inheritance</td></tr><tr><td>Code volume</td><td>More code for common patterns</td><td>Less code for standard CRUD</td></tr><tr><td>Flexibility</td><td>Full control over logic</td><td>Override specific methods</td></tr><tr><td>Best for</td><td>Custom or unique logic</td><td>Standard CRUD operations</td></tr></tbody></table>
+
+<div class="quiz-card">
+  <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
+  <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
+  <div class="quiz-inner" data-answer="B">
+    <p class="quiz-question">What method do you call on a CBV in urls.py to use it as a view?</p>
+    <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>.run()</span></div>
+<div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>.as_view()</span></div>
+<div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>.dispatch()</span></div>
+<div class="quiz-option" data-value="D" onclick="selectOption(this)"><span class="quiz-option-letter">D</span><span>.render()</span></div>
+</div>
+    <button class="quiz-check-btn" onclick="checkQuiz(this)">Check Answer</button>
+    <div class="quiz-feedback quiz-feedback-correct">✓ Correct! Well done.</div>
+    <div class="quiz-feedback quiz-feedback-incorrect">✗ That's not right. The correct answer is B.</div>
+  </div>
+</div>
+
+  <div class="completion-card">
+  <div class="completion-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h3>Chapter Complete!</h3>
+  <p>You've finished this chapter. Keep up the great work!</p>
+  <a href="chapter-13.html" class="next-chapter-btn" onclick="markComplete('ch12')">Next Chapter →</a>
+  <br><a href="chapter-11.html" class="prev-chapter-link">← Static Files and Media Uploads</a>
+</div>
+</main>
+<footer class="global-footer">&copy; 2026 LearnDjango Tutorial. Built for learning purposes. Django is a registered trademark of the Django Software Foundation.</footer>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
