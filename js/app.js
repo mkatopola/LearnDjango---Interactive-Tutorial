@@ -105,12 +105,51 @@ document.addEventListener('keydown', e => {
 // ===== Copy Code =====
 function copyCode(btn) {
   const block = btn.closest('.code-block');
-  const code = block.querySelector('code');
-  const text = code.textContent;
+  const codes = block.querySelectorAll('pre code');
+  const code = codes[codes.length - 1] || block.querySelector('code');
+  const text = code ? code.textContent : '';
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.innerHTML;
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
     setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  });
+}
+
+function insertCodeFileStructureSnippets() {
+  document.querySelectorAll('.code-block').forEach(block => {
+    if (block.querySelector('.code-file-structure')) return;
+    const span = block.querySelector('.code-header-left span');
+    if (!span) return;
+    const label = span.textContent.trim();
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-file-structure';
+
+    if (label.toLowerCase() === 'terminal' || label.toLowerCase() === 'usage') {
+      const strong = document.createElement('strong');
+      strong.textContent = 'Context:';
+      wrapper.appendChild(strong);
+      wrapper.appendChild(document.createTextNode(' Terminal command'));
+    } else {
+      const strong = document.createElement('strong');
+      strong.textContent = 'File structure:';
+      wrapper.appendChild(strong);
+
+      const pre = document.createElement('pre');
+      const code = document.createElement('code');
+      const parts = label.split('/');
+      const lines = ['project/'];
+      let indent = '  ';
+      parts.forEach(part => {
+        lines.push(indent + part);
+        indent += '  ';
+      });
+      code.textContent = lines.join('\n');
+      pre.appendChild(code);
+      wrapper.appendChild(pre);
+    }
+
+    const preTag = block.querySelector('pre');
+    if (preTag) block.insertBefore(wrapper, preTag);
   });
 }
 
@@ -162,6 +201,7 @@ function updateLandingProgress() {
 document.addEventListener('DOMContentLoaded', () => {
   updateLandingProgress();
   updateDropdownProgress();
+  insertCodeFileStructureSnippets();
   // Initialize highlight.js
   if (window.hljs) {
     document.querySelectorAll('pre code').forEach(block => {
