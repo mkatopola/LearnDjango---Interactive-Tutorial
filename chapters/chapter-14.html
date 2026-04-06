@@ -149,23 +149,23 @@
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>settings.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/settings.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># settings.py
+  <pre><code class="language-python"># helloworld/settings.py
 INSTALLED_APPS = [
     # ... other apps ...
-    &#x27;rest_framework&#x27;,
-    &#x27;rest_framework.authtoken&#x27;,  # Add this
+    'rest_framework',
+    'rest_framework.authtoken',  # Add this
 ]
 
 REST_FRAMEWORK = {{
-    &#x27;DEFAULT_AUTHENTICATION_CLASSES&#x27;: [
-        &#x27;rest_framework.authentication.TokenAuthentication&#x27;,
-        &#x27;rest_framework.authentication.SessionAuthentication&#x27;,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
-    &#x27;DEFAULT_PERMISSION_CLASSES&#x27;: [
-        &#x27;rest_framework.permissions.IsAuthenticated&#x27;,
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
     ],
 }}</code></pre>
 </div>
@@ -185,15 +185,15 @@ REST_FRAMEWORK = {{
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>urls.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/urls.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># urls.py
+  <pre><code class="language-python"># helloworld/urls.py
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     # ... other patterns ...
-    path(&#x27;api/token/&#x27;, obtain_auth_token, name=&#x27;api_token&#x27;),
+    path('api/token/', obtain_auth_token, name='api_token'),
 ]</code></pre>
 </div>
 
@@ -244,7 +244,7 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     
     def get_permissions(self):
-        if self.action in [&#x27;list&#x27;, &#x27;retrieve&#x27;]:
+        if self.action in ['list', 'retrieve']:
             return [IsAuthenticated()]
         return [IsAdminUser()]</code></pre>
 </div>

@@ -149,7 +149,7 @@
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(owner=request.user)
-    return render(request, &#x27;tasks/task_list.html&#x27;, {{&#x27;tasks&#x27;: tasks}})
+    return render(request, 'tasks/task_list.html', {{'tasks': tasks}})
 
 # The class-based way
 from django.views.generic import ListView
@@ -157,8 +157,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
-    template_name = &#x27;tasks/task_list.html&#x27;
-    context_object_name = &#x27;tasks&#x27;
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)</code></pre>
@@ -176,8 +176,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
-    template_name = &#x27;tasks/task_list.html&#x27;
-    context_object_name = &#x27;tasks&#x27;
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)</code></pre>
@@ -195,9 +195,9 @@ from django.urls import reverse_lazy
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
-    fields = [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;due_date&#x27;]
-    template_name = &#x27;tasks/task_form.html&#x27;
-    success_url = reverse_lazy(&#x27;task_list&#x27;)
+    fields = ['title', 'description', 'due_date']
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('task_list')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -215,9 +215,9 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;due_date&#x27;, &#x27;is_complete&#x27;]
-    template_name = &#x27;tasks/task_form.html&#x27;
-    success_url = reverse_lazy(&#x27;task_list&#x27;)
+    fields = ['title', 'description', 'due_date', 'is_complete']
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('task_list')
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)</code></pre>
@@ -234,8 +234,8 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
-    template_name = &#x27;tasks/task_confirm_delete.html&#x27;
-    success_url = reverse_lazy(&#x27;task_list&#x27;)
+    template_name = 'tasks/task_confirm_delete.html'
+    success_url = reverse_lazy('task_list')
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)</code></pre>
@@ -253,10 +253,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path(&#x27;&#x27;, views.TaskListView.as_view(), name=&#x27;task_list&#x27;),
-    path(&#x27;create/&#x27;, views.TaskCreateView.as_view(), name=&#x27;task_create&#x27;),
-    path(&#x27;&lt;int:pk&gt;/edit/&#x27;, views.TaskUpdateView.as_view(), name=&#x27;task_update&#x27;),
-    path(&#x27;&lt;int:pk&gt;/delete/&#x27;, views.TaskDeleteView.as_view(), name=&#x27;task_delete&#x27;),
+    path('', views.TaskListView.as_view(), name='task_list'),
+    path('create/', views.TaskCreateView.as_view(), name='task_create'),
+    path('&lt;int:pk&gt;/edit/', views.TaskUpdateView.as_view(), name='task_update'),
+    path('&lt;int:pk&gt;/delete/', views.TaskDeleteView.as_view(), name='task_delete'),
 ]</code></pre>
 </div>
 

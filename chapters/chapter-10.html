@@ -160,7 +160,7 @@ class Task(models.Model):
         return self.title
 
     class Meta:
-        ordering = [&#x27;-created_at&#x27;]</code></pre>
+        ordering = ['-created_at']</code></pre>
 </div>
 
 <h2>List View — Read</h2>
@@ -179,7 +179,7 @@ from .forms import TaskForm
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(owner=request.user)
-    return render(request, &#x27;tasks/task_list.html&#x27;, {{&#x27;tasks&#x27;: tasks}})</code></pre>
+    return render(request, 'tasks/task_list.html', {{'tasks': tasks}})</code></pre>
 </div>
 
 <div class="code-block">
@@ -188,28 +188,28 @@ def task_list(request):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/tasks/task_list.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block content %}}
+{% block content %}
 &lt;h1&gt;My Tasks&lt;/h1&gt;
-&lt;a href=&quot;{{% url &#x27;task_create&#x27; %}}&quot;&gt;+ New Task&lt;/a&gt;
+&lt;a href=&quot;{% url 'task_create' %}&quot;&gt;+ New Task&lt;/a&gt;
 
-{{% for task in tasks %}}
-&lt;div class=&quot;task {{{{ task.is_complete|yesno:&#x27;done,&#x27; }}}}&quot;&gt;
-    &lt;h3&gt;{{{{ task.title }}}}&lt;/h3&gt;
-    &lt;p&gt;{{{{ task.description|truncatewords:20 }}}}&lt;/p&gt;
+{% for task in tasks %}
+&lt;div class=&quot;task {{ task.is_complete|yesno:'done,' }}&quot;&gt;
+    &lt;h3&gt;{{ task.title }}&lt;/h3&gt;
+    &lt;p&gt;{{ task.description|truncatewords:20 }}&lt;/p&gt;
     &lt;div class=&quot;actions&quot;&gt;
-        &lt;a href=&quot;{{% url &#x27;task_update&#x27; task.pk %}}&quot;&gt;Edit&lt;/a&gt;
-        &lt;a href=&quot;{{% url &#x27;task_delete&#x27; task.pk %}}&quot;&gt;Delete&lt;/a&gt;
-        &lt;a href=&quot;{{% url &#x27;task_toggle&#x27; task.pk %}}&quot;&gt;
-            {{{{ task.is_complete|yesno:&#x27;Undo,Complete&#x27; }}}}
+        &lt;a href=&quot;{% url 'task_update' task.pk %}&quot;&gt;Edit&lt;/a&gt;
+        &lt;a href=&quot;{% url 'task_delete' task.pk %}&quot;&gt;Delete&lt;/a&gt;
+        &lt;a href=&quot;{% url 'task_toggle' task.pk %}&quot;&gt;
+            {{ task.is_complete|yesno:'Undo,Complete' }}
         &lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-{{% empty %}}
+{% empty %}
     &lt;p&gt;No tasks yet. Create one!&lt;/p&gt;
-{{% endfor %}}
-{{% endblock %}}</code></pre>
+{% endfor %}
+{% endblock %}</code></pre>
 </div>
 
 <h2>Create View</h2>
@@ -221,16 +221,16 @@ def task_list(request):
   </div>
   <pre><code class="language-python">@login_required
 def task_create(request):
-    if request.method == &#x27;POST&#x27;:
+    if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.owner = request.user
             task.save()
-            return redirect(&#x27;task_list&#x27;)
+            return redirect('task_list')
     else:
         form = TaskForm()
-    return render(request, &#x27;tasks/task_form.html&#x27;, {{&#x27;form&#x27;: form}})</code></pre>
+    return render(request, 'tasks/task_form.html', {{'form': form}})</code></pre>
 </div>
 
 <div class="code-block">
@@ -239,17 +239,17 @@ def task_create(request):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/tasks/task_form.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block content %}}
-&lt;h1&gt;{{{{ form.instance.pk|yesno:&#x27;Edit Task,New Task&#x27; }}}}&lt;/h1&gt;
+{% block content %}
+&lt;h1&gt;{{ form.instance.pk|yesno:'Edit Task,New Task' }}&lt;/h1&gt;
 &lt;form method=&quot;POST&quot;&gt;
-    {{% csrf_token %}}
-    {{{{ form.as_p }}}}
+    {% csrf_token %}
+    {{ form.as_p }}
     &lt;button type=&quot;submit&quot;&gt;Save&lt;/button&gt;
-    &lt;a href=&quot;{{% url &#x27;task_list&#x27; %}}&quot;&gt;Cancel&lt;/a&gt;
+    &lt;a href=&quot;{% url 'task_list' %}&quot;&gt;Cancel&lt;/a&gt;
 &lt;/form&gt;
-{{% endblock %}}</code></pre>
+{% endblock %}</code></pre>
 </div>
 
 <h2>Update View</h2>
@@ -262,14 +262,14 @@ def task_create(request):
   <pre><code class="language-python">@login_required
 def task_update(request, pk):
     task = get_object_or_404(Task, pk=pk, owner=request.user)
-    if request.method == &#x27;POST&#x27;:
+    if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return redirect(&#x27;task_list&#x27;)
+            return redirect('task_list')
     else:
         form = TaskForm(instance=task)
-    return render(request, &#x27;tasks/task_form.html&#x27;, {{&#x27;form&#x27;: form}})</code></pre>
+    return render(request, 'tasks/task_form.html', {{'form': form}})</code></pre>
 </div>
 
 <h2>Delete View</h2>
@@ -282,10 +282,10 @@ def task_update(request, pk):
   <pre><code class="language-python">@login_required
 def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk, owner=request.user)
-    if request.method == &#x27;POST&#x27;:
+    if request.method == 'POST':
         task.delete()
-        return redirect(&#x27;task_list&#x27;)
-    return render(request, &#x27;tasks/task_confirm_delete.html&#x27;, {{&#x27;task&#x27;: task}})</code></pre>
+        return redirect('task_list')
+    return render(request, 'tasks/task_confirm_delete.html', {{'task': task}})</code></pre>
 </div>
 
 <div class="code-block">
@@ -294,17 +294,17 @@ def task_delete(request, pk):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/tasks/task_confirm_delete.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block content %}}
+{% block content %}
 &lt;h1&gt;Delete Task&lt;/h1&gt;
-&lt;p&gt;Are you sure you want to delete &quot;&lt;strong&gt;{{{{ task.title }}}}&lt;/strong&gt;&quot;?&lt;/p&gt;
+&lt;p&gt;Are you sure you want to delete &quot;&lt;strong&gt;{{ task.title }}&lt;/strong&gt;&quot;?&lt;/p&gt;
 &lt;form method=&quot;POST&quot;&gt;
-    {{% csrf_token %}}
+    {% csrf_token %}
     &lt;button type=&quot;submit&quot;&gt;Yes, Delete&lt;/button&gt;
-    &lt;a href=&quot;{{% url &#x27;task_list&#x27; %}}&quot;&gt;Cancel&lt;/a&gt;
+    &lt;a href=&quot;{% url 'task_list' %}&quot;&gt;Cancel&lt;/a&gt;
 &lt;/form&gt;
-{{% endblock %}}</code></pre>
+{% endblock %}</code></pre>
 </div>
 
 <h2>Toggle Completion</h2>
@@ -319,7 +319,7 @@ def task_toggle(request, pk):
     task = get_object_or_404(Task, pk=pk, owner=request.user)
     task.is_complete = not task.is_complete
     task.save()
-    return redirect(&#x27;task_list&#x27;)</code></pre>
+    return redirect('task_list')</code></pre>
 </div>
 
 <h2>URL Configuration</h2>
@@ -334,11 +334,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path(&#x27;&#x27;, views.task_list, name=&#x27;task_list&#x27;),
-    path(&#x27;create/&#x27;, views.task_create, name=&#x27;task_create&#x27;),
-    path(&#x27;&lt;int:pk&gt;/edit/&#x27;, views.task_update, name=&#x27;task_update&#x27;),
-    path(&#x27;&lt;int:pk&gt;/delete/&#x27;, views.task_delete, name=&#x27;task_delete&#x27;),
-    path(&#x27;&lt;int:pk&gt;/toggle/&#x27;, views.task_toggle, name=&#x27;task_toggle&#x27;),
+    path('', views.task_list, name='task_list'),
+    path('create/', views.task_create, name='task_create'),
+    path('&lt;int:pk&gt;/edit/', views.task_update, name='task_update'),
+    path('&lt;int:pk&gt;/delete/', views.task_delete, name='task_delete'),
+    path('&lt;int:pk&gt;/toggle/', views.task_toggle, name='task_toggle'),
 ]</code></pre>
 </div>
 

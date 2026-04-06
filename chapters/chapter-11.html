@@ -135,33 +135,37 @@
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
     <ul><li>Static files vs media files</li><li>Configuring static files</li><li>Using static files in templates</li><li>Configuring media uploads</li><li>Building an image upload view</li></ul>
   </div>
-  <p class="chapter-intro">Static files (CSS, JavaScript, images) and media files (user uploads) are handled differently in Django. Let's learn how to configure both.</p>
+  <p class="chapter-intro">In Django, static files are the files your app ships with, and media files are the files users upload. This chapter explains both clearly so you can use CSS, JavaScript, and uploaded images the right way.</p>
 
 <h2>Static vs Media Files</h2>
+<p>There are two kinds of file content in Django. Static files are part of your project code. Media files are created and uploaded by users.</p>
 
 <table><thead><tr><th>Type</th><th>What It Is</th><th>Example</th><th>Changes At Runtime?</th></tr></thead><tbody><tr><td><strong>Static</strong></td><td>Files you ship with your app</td><td>CSS, JS, icons, fonts</td><td>No — bundled with code</td></tr><tr><td><strong>Media</strong></td><td>Files uploaded by users</td><td>Profile photos, documents</td><td>Yes — created by users</td></tr></tbody></table>
 
 <h2>Configuring Static Files</h2>
-<p>Add these settings to <code>settings.py</code>:</p>
+<p>Add these settings to <code>helloworld/settings.py</code>:</p>
+<p>Static files are the CSS, JavaScript, and site images that your app ships with. Django uses <code>STATIC_URL</code> to build URLs for these files.</p>
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>settings.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/settings.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># settings.py
+  <pre><code class="language-python"># helloworld/settings.py
 
 # URL prefix for static files
-STATIC_URL = &#x27;/static/&#x27;
+STATIC_URL = '/static/'
 
 # Where collectstatic gathers files for production
-STATIC_ROOT = BASE_DIR / &#x27;staticfiles&#x27;
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Additional directories to look for static files
 STATICFILES_DIRS = [
-    BASE_DIR / &#x27;static&#x27;,
+    BASE_DIR / 'static',
 ]</code></pre>
 </div>
+
+<p>In production, Django copies static files into <code>STATIC_ROOT</code> when you run <code>python manage.py collectstatic</code>. During development, Django finds static files from each app and from <code>STATICFILES_DIRS</code>.</p>
 
 <p>Create the static files directories:</p>
 
@@ -190,61 +194,63 @@ STATICFILES_DIRS = [
 </div>
 
 <h2>Using Static Files in Templates</h2>
-<p>Use the <code>{% load static %}</code> tag and <code>{% static %}</code> to reference files:</p>
+<p>Use the <code>{% load static %}</code> template tag and the <code>{% static %}</code> helper to build the correct URL:</p>
 
 <div class="code-block">
   <div class="code-header">
     <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>template.html</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-django">{{% load static %}}
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;{{% static &#x27;css/style.css&#x27; %}}&quot;&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;img src=&quot;{{% static &#x27;images/logo.png&#x27; %}}&quot; alt=&quot;Logo&quot;&gt;
-    &lt;script src=&quot;{{% static &#x27;js/app.js&#x27; %}}&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+  <pre><code class="language-django">{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <img src="{% static 'images/logo.png' %}" alt="Logo">
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html></code></pre>
 </div>
 
-<div class="info-box"><strong>Important:</strong> Always use <code>{{% static %}}</code> instead of hardcoding paths like <code>/static/css/style.css</code>. The template tag handles URL prefixes correctly across different environments.</div>
+<div class="info-box"><strong>Important:</strong> Always use <code>{% static %}</code> instead of hardcoding paths like <code>/static/css/style.css</code>. The template tag handles URL prefixes correctly across different environments.</div>
 
 <h2>Configuring Media Uploads</h2>
-<p>For user-uploaded files, add these settings:</p>
+<p>For user-uploaded files, add these settings to <code>helloworld/settings.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>settings.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/settings.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># settings.py
+  <pre><code class="language-python"># helloworld/settings.py
 
 # URL prefix for media files
-MEDIA_URL = &#x27;/media/&#x27;
+MEDIA_URL = '/media/'
 
 # Where uploaded files are stored on disk
-MEDIA_ROOT = BASE_DIR / &#x27;media&#x27;</code></pre>
+MEDIA_ROOT = BASE_DIR / 'media'</code></pre>
 </div>
 
-<p>In development, serve media files by adding this to your project's <code>urls.py</code>:</p>
+<p><code>MEDIA_ROOT</code> is the folder where Django saves uploaded files. <code>MEDIA_URL</code> is the URL prefix you use to show those files in templates.</p>
+
+<p>In development, add this to <code>helloworld/urls.py</code> so Django can serve uploaded files automatically:</p>
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>urls.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/urls.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># urls.py
+  <pre><code class="language-python"># helloworld/urls.py
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
 
 urlpatterns = [
     # ... your URL patterns ...
 ]
 
-# Serve media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</code></pre>
 </div>
@@ -259,10 +265,11 @@ if settings.DEBUG:
   <pre><code class="language-python"># Install Pillow for image support
 # pip install Pillow
 
-# models.py
+from django.db import models
+
 class Photo(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=&#x27;photos/%Y/%m/&#x27;)
+    image = models.ImageField(upload_to='photos/%Y/%m/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -278,18 +285,19 @@ class Photo(models.Model):
   </div>
   <pre><code class="language-python"># views.py
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import PhotoForm
 
 @login_required
 def upload_photo(request):
-    if request.method == &#x27;POST&#x27;:
-        form = PhotoForm(request.POST, request.FILES)  # Don&#x27;t forget request.FILES!
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(&#x27;photo_list&#x27;)
+            return redirect('photo_list')
     else:
         form = PhotoForm()
-    return render(request, &#x27;photos/upload.html&#x27;, {{&#x27;form&#x27;: form}})</code></pre>
+    return render(request, 'photos/upload.html', {'form': form})</code></pre>
 </div>
 
 <div class="code-block">
@@ -297,12 +305,12 @@ def upload_photo(request):
     <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>upload.html</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-django">&lt;!-- templates/photos/upload.html --&gt;
-&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;
-    {{% csrf_token %}}
-    {{{{ form.as_p }}}}
-    &lt;button type=&quot;submit&quot;&gt;Upload&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+  <pre><code class="language-django"><!-- templates/photos/upload.html -->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form></code></pre>
 </div>
 
 <div class="info-box"><strong>Don't forget:</strong> When uploading files, your form tag must include <code>enctype="multipart/form-data"</code>, and your view must pass <code>request.FILES</code> to the form constructor.</div>

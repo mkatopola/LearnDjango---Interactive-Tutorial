@@ -133,7 +133,7 @@
   <h1>User Authentication</h1>
   <div class="in-this-chapter">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
-    <ul><li>Django&#x27;s built-in authentication system</li><li>The @login_required decorator</li><li>Login and logout views</li><li>Login template with CSRF</li><li>Configuring redirects</li></ul>
+    <ul><li>Django's built-in authentication system</li><li>The @login_required decorator</li><li>Login and logout views</li><li>Login template with CSRF</li><li>Configuring redirects</li></ul>
   </div>
   <p class="chapter-intro">Django comes with a robust authentication system out of the box. Let's set up user login, logout, and protected views.</p>
 
@@ -163,17 +163,17 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def task_list(request):
     tasks = Task.objects.filter(owner=request.user)
-    return render(request, &#x27;tasks/task_list.html&#x27;, {{&#x27;tasks&#x27;: tasks}})
+    return render(request, 'tasks/task_list.html', {{'tasks': tasks}})
 
 @login_required
 def dashboard(request):
-    return render(request, &#x27;dashboard.html&#x27;)</code></pre>
+    return render(request, 'dashboard.html')</code></pre>
 </div>
 
 <p>If a non-authenticated user tries to access a protected view, they'll be redirected to the login page.</p>
 
 <h2>Setting Up Auth URLs</h2>
-<p>Django provides built-in views for login, logout, and password management. Include them in your project's <code>urls.py</code>:</p>
+<p>Django provides built-in views for login, logout, and password management. Include them in your project's <code>helloworld/urls.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
@@ -185,9 +185,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path(&#x27;admin/&#x27;, admin.site.urls),
-    path(&#x27;accounts/&#x27;, include(&#x27;django.contrib.auth.urls&#x27;)),
-    path(&#x27;&#x27;, include(&#x27;pages.urls&#x27;)),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('pages.urls')),
 ]</code></pre>
 </div>
 
@@ -204,19 +204,19 @@ urlpatterns = [
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/registration/login.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block title %}}Login{{% endblock %}}
+{% block title %}Login{% endblock %}
 
-{{% block content %}}
+{% block content %}
 &lt;h2&gt;Log In&lt;/h2&gt;
 &lt;form method=&quot;POST&quot;&gt;
-    {{% csrf_token %}}
-    {{{{ form.as_p }}}}
+    {% csrf_token %}
+    {{ form.as_p }}
     &lt;button type=&quot;submit&quot;&gt;Log In&lt;/button&gt;
 &lt;/form&gt;
 &lt;!-- Optional: add a sign-up link here if you implement user registration --&gt;
-{{% endblock %}}</code></pre>
+{% endblock %}</code></pre>
 </div>
 
 <h2>Configuring Redirects</h2>
@@ -224,13 +224,13 @@ urlpatterns = [
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>settings.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/settings.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># settings.py
-LOGIN_REDIRECT_URL = &#x27;/&#x27;        # After successful login
-LOGOUT_REDIRECT_URL = &#x27;/&#x27;       # After logout
-LOGIN_URL = &#x27;/accounts/login/&#x27;  # Where @login_required sends users</code></pre>
+  <pre><code class="language-python"># helloworld/settings.py
+LOGIN_REDIRECT_URL = '/'        # After successful login
+LOGOUT_REDIRECT_URL = '/'       # After logout
+LOGIN_URL = '/accounts/login/'  # Where @login_required sends users</code></pre>
 </div>
 
 <h2>Using Auth in Templates</h2>
@@ -241,12 +241,12 @@ LOGIN_URL = &#x27;/accounts/login/&#x27;  # Where @login_required sends users</c
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- In any template --&gt;
-{{% if user.is_authenticated %}}
-    &lt;p&gt;Hello, {{{{ user.username }}}}!&lt;/p&gt;
-    &lt;a href=&quot;{{% url &#x27;logout&#x27; %}}&quot;&gt;Log Out&lt;/a&gt;
-{{% else %}}
-    &lt;a href=&quot;{{% url &#x27;login&#x27; %}}&quot;&gt;Log In&lt;/a&gt;
-{{% endif %}}</code></pre>
+{% if user.is_authenticated %}
+    &lt;p&gt;Hello, {{ user.username }}!&lt;/p&gt;
+    &lt;a href=&quot;{% url 'logout' %}&quot;&gt;Log Out&lt;/a&gt;
+{% else %}
+    &lt;a href=&quot;{% url 'login' %}&quot;&gt;Log In&lt;/a&gt;
+{% endif %}</code></pre>
 </div>
 
 <div class="quiz-card">

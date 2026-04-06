@@ -166,7 +166,7 @@
 └── views.py</code></pre>
 </div>
 
-<p>Now register the app in your project's <code>settings.py</code>:</p>
+<p>Now register the app in your project's <code>helloworld/settings.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
@@ -176,13 +176,13 @@
   <pre><code class="language-python"># helloworld/settings.py
 
 INSTALLED_APPS = [
-    &#x27;django.contrib.admin&#x27;,
-    &#x27;django.contrib.auth&#x27;,
-    &#x27;django.contrib.contenttypes&#x27;,
-    &#x27;django.contrib.sessions&#x27;,
-    &#x27;django.contrib.messages&#x27;,
-    &#x27;django.contrib.staticfiles&#x27;,
-    &#x27;pages&#x27;,  # Add your app here
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pages',  # Add your app here
 ]</code></pre>
 </div>
 
@@ -198,10 +198,10 @@ INSTALLED_APPS = [
 from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse(&#x27;&lt;h1&gt;Hello, Django!&lt;/h1&gt;&#x27;)
+    return HttpResponse('&lt;h1&gt;Hello, Django!&lt;/h1&gt;')
 
 def about(request):
-    return HttpResponse(&#x27;&lt;h1&gt;About Page&lt;/h1&gt;&lt;p&gt;This is the about page.&lt;/p&gt;&#x27;)</code></pre>
+    return HttpResponse('&lt;h1&gt;About Page&lt;/h1&gt;&lt;p&gt;This is the about page.&lt;/p&gt;')</code></pre>
 </div>
 
 <p>Every view function receives a <code>request</code> object and must return a <code>response</code> object. The simplest response is <code>HttpResponse</code> with an HTML string.</p>
@@ -219,13 +219,13 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path(&#x27;&#x27;, views.home, name=&#x27;home&#x27;),
-    path(&#x27;about/&#x27;, views.about, name=&#x27;about&#x27;),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
 ]</code></pre>
 </div>
 
 <h2>Including App URLs in the Project</h2>
-<p>Now wire your app's URLs into the main project <code>urls.py</code>:</p>
+<p>Now wire your app's URLs into the main project <code>helloworld/urls.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
@@ -237,8 +237,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path(&#x27;admin/&#x27;, admin.site.urls),
-    path(&#x27;&#x27;, include(&#x27;pages.urls&#x27;)),
+    path('admin/', admin.site.urls),
+    path('', include('pages.urls')),
 ]</code></pre>
 </div>
 
@@ -261,15 +261,15 @@ from django.shortcuts import redirect
 
 # Return JSON
 def api_data(request):
-    return JsonResponse({{&#x27;name&#x27;: &#x27;Django&#x27;, &#x27;version&#x27;: &#x27;5.1&#x27;}})
+    return JsonResponse({{'name': 'Django', 'version': '5.1'}})
 
 # Redirect to another URL
 def old_page(request):
-    return redirect(&#x27;home&#x27;)  # Uses the named URL
+    return redirect('home')  # Uses the named URL
 
 # Return with a specific status code
 def not_found(request):
-    return HttpResponse(&#x27;Not Found&#x27;, status=404)</code></pre>
+    return HttpResponse('Not Found', status=404)</code></pre>
 </div>
 
 <div class="quiz-card">

@@ -133,7 +133,7 @@
   <h1>Forms and User Input</h1>
   <div class="in-this-chapter">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> In This Chapter</h3>
-    <ul><li>Django&#x27;s form system</li><li>ModelForm vs regular Form</li><li>Handling form submissions</li><li>Form validation</li><li>Custom widgets</li></ul>
+    <ul><li>Django's form system</li><li>ModelForm vs regular Form</li><li>Handling form submissions</li><li>Form validation</li><li>Custom widgets</li></ul>
   </div>
   <p class="chapter-intro">Forms are how users interact with your application. Django provides a powerful forms framework that handles rendering, validation, and security.</p>
 
@@ -157,20 +157,20 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;due_date&#x27;, &#x27;is_complete&#x27;]
+        fields = ['title', 'description', 'due_date', 'is_complete']
         widgets = {{
-            &#x27;title&#x27;: forms.TextInput(attrs={{
-                &#x27;class&#x27;: &#x27;form-control&#x27;,
-                &#x27;placeholder&#x27;: &#x27;Enter task title&#x27;
+            'title': forms.TextInput(attrs={{
+                'class': 'form-control',
+                'placeholder': 'Enter task title'
             }}),
-            &#x27;description&#x27;: forms.Textarea(attrs={{
-                &#x27;class&#x27;: &#x27;form-control&#x27;,
-                &#x27;rows&#x27;: 4,
-                &#x27;placeholder&#x27;: &#x27;Describe your task...&#x27;
+            'description': forms.Textarea(attrs={{
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Describe your task...'
             }}),
-            &#x27;due_date&#x27;: forms.DateInput(attrs={{
-                &#x27;class&#x27;: &#x27;form-control&#x27;,
-                &#x27;type&#x27;: &#x27;date&#x27;
+            'due_date': forms.DateInput(attrs={{
+                'class': 'form-control',
+                'type': 'date'
             }}),
         }}</code></pre>
 </div>
@@ -191,9 +191,9 @@ class ContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
     
     def clean_email(self):
-        email = self.cleaned_data[&#x27;email&#x27;]
-        if not email.endswith(&#x27;.com&#x27;):
-            raise forms.ValidationError(&#x27;Only .com emails accepted.&#x27;)
+        email = self.cleaned_data['email']
+        if not email.endswith('.com'):
+            raise forms.ValidationError('Only .com emails accepted.')
         return email</code></pre>
 </div>
 
@@ -210,17 +210,17 @@ from django.shortcuts import render, redirect
 from .forms import TaskForm
 
 def task_create(request):
-    if request.method == &#x27;POST&#x27;:
+    if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.owner = request.user
             task.save()
-            return redirect(&#x27;task_list&#x27;)
+            return redirect('task_list')
     else:
         form = TaskForm()
     
-    return render(request, &#x27;tasks/task_form.html&#x27;, {{&#x27;form&#x27;: form}})</code></pre>
+    return render(request, 'tasks/task_form.html', {{'form': form}})</code></pre>
 </div>
 
 <h2>Rendering Forms in Templates</h2>
@@ -231,19 +231,19 @@ def task_create(request):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/tasks/task_form.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block content %}}
+{% block content %}
 &lt;h1&gt;Create Task&lt;/h1&gt;
 &lt;form method=&quot;POST&quot;&gt;
-    {{% csrf_token %}}
-    {{{{ form.as_p }}}}
+    {% csrf_token %}
+    {{ form.as_p }}
     &lt;button type=&quot;submit&quot;&gt;Save Task&lt;/button&gt;
 &lt;/form&gt;
-{{% endblock %}}</code></pre>
+{% endblock %}</code></pre>
 </div>
 
-<div class="info-box"><strong>Security:</strong> Always include <code>{{% csrf_token %}}</code> in your forms. This protects against Cross-Site Request Forgery attacks. Django will reject POST requests without a valid CSRF token.</div>
+<div class="info-box"><strong>Security:</strong> Always include <code>{% csrf_token %}</code> in your forms. This protects against Cross-Site Request Forgery attacks. Django will reject POST requests without a valid CSRF token.</div>
 
 <h2>Form Rendering Options</h2>
 
@@ -257,13 +257,13 @@ def task_create(request):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;form method=&quot;POST&quot;&gt;
-    {{% csrf_token %}}
+    {% csrf_token %}
     &lt;div class=&quot;field&quot;&gt;
-        &lt;label for=&quot;{{{{ form.title.id_for_label }}}}&quot;&gt;Title&lt;/label&gt;
-        {{{{ form.title }}}}
-        {{% if form.title.errors %}}
-            &lt;span class=&quot;error&quot;&gt;{{{{ form.title.errors.0 }}}}&lt;/span&gt;
-        {{% endif %}}
+        &lt;label for=&quot;{{ form.title.id_for_label }}&quot;&gt;Title&lt;/label&gt;
+        {{ form.title }}
+        {% if form.title.errors %}
+            &lt;span class=&quot;error&quot;&gt;{{ form.title.errors.0 }}&lt;/span&gt;
+        {% endif %}
     &lt;/div&gt;
     &lt;button type=&quot;submit&quot;&gt;Save&lt;/button&gt;
 &lt;/form&gt;</code></pre>

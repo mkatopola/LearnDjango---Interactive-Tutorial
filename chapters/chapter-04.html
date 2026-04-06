@@ -148,25 +148,25 @@
   <pre><code class="language-bash">mkdir templates</code></pre>
 </div>
 
-<p>Tell Django where to find your templates by updating <code>settings.py</code>:</p>
+<p>Tell Django where to find your templates by updating <code>helloworld/settings.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>settings.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/settings.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># settings.py
+  <pre><code class="language-python"># helloworld/settings.py
 TEMPLATES = [
     {{
-        &#x27;BACKEND&#x27;: &#x27;django.template.backends.django.DjangoTemplates&#x27;,
-        &#x27;DIRS&#x27;: [BASE_DIR / &#x27;templates&#x27;],  # Add this line
-        &#x27;APP_DIRS&#x27;: True,
-        &#x27;OPTIONS&#x27;: {{
-            &#x27;context_processors&#x27;: [
-                &#x27;django.template.context_processors.debug&#x27;,
-                &#x27;django.template.context_processors.request&#x27;,
-                &#x27;django.contrib.auth.context_processors.auth&#x27;,
-                &#x27;django.contrib.messages.context_processors.messages&#x27;,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],  # Add this line
+        'APP_DIRS': True,
+        'OPTIONS': {{
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         }},
     }},
@@ -186,10 +186,10 @@ from django.shortcuts import render
 
 def home(request):
     context = {{
-        &#x27;title&#x27;: &#x27;Welcome to Django&#x27;,
-        &#x27;items&#x27;: [&#x27;Learn Models&#x27;, &#x27;Build Views&#x27;, &#x27;Design Templates&#x27;],
+        'title': 'Welcome to Django',
+        'items': ['Learn Models', 'Build Views', 'Design Templates'],
     }}
-    return render(request, &#x27;home.html&#x27;, context)</code></pre>
+    return render(request, 'home.html', context)</code></pre>
 </div>
 
 <p>Now create the template file:</p>
@@ -202,13 +202,13 @@ def home(request):
   <pre><code class="language-django">&lt;!-- templates/home.html --&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;&lt;title&gt;{{{{ title }}}}&lt;/title&gt;&lt;/head&gt;
+&lt;head&gt;&lt;title&gt;{{ title }}&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;
-    &lt;h1&gt;{{{{ title }}}}&lt;/h1&gt;
+    &lt;h1&gt;{{ title }}&lt;/h1&gt;
     &lt;ul&gt;
-        {{% for item in items %}}
-            &lt;li&gt;{{{{ item }}}}&lt;/li&gt;
-        {{% endfor %}}
+        {% for item in items %}
+            &lt;li&gt;{{ item }}&lt;/li&gt;
+        {% endfor %}
     &lt;/ul&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -217,7 +217,7 @@ def home(request):
 <h2>Django Template Language (DTL) Basics</h2>
 <p>DTL uses special syntax to inject dynamic content into HTML:</p>
 
-<table><thead><tr><th>Syntax</th><th>Purpose</th><th>Example</th></tr></thead><tbody><tr><td><code>{{{{ variable }}}}</code></td><td>Output a variable's value</td><td><code>{{{{ user.name }}}}</code></td></tr><tr><td><code>{{% tag %}}</code></td><td>Template tags for logic</td><td><code>{{% if user.is_authenticated %}}</code></td></tr><tr><td><code>{{# comment #}}</code></td><td>Template comments (not rendered)</td><td><code>{{# TODO: add nav #}}</code></td></tr><tr><td><code>{{{{ value|filter }}}}</code></td><td>Apply a filter to a value</td><td><code>{{{{ name|upper }}}}</code></td></tr></tbody></table>
+<table><thead><tr><th>Syntax</th><th>Purpose</th><th>Example</th></tr></thead><tbody><tr><td><code>{{ variable }}</code></td><td>Output a variable's value</td><td><code>{{ user.name }}</code></td></tr><tr><td><code>{% tag %}</code></td><td>Template tags for logic</td><td><code>{% if user.is_authenticated %}</code></td></tr><tr><td><code>{# comment #}</code></td><td>Template comments (not rendered)</td><td><code>{# TODO: add nav #}</code></td></tr><tr><td><code>{{ value|filter }}</code></td><td>Apply a filter to a value</td><td><code>{{ name|upper }}</code></td></tr></tbody></table>
 
 <h3>Conditionals</h3>
 
@@ -226,13 +226,13 @@ def home(request):
     <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>template.html</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-django">{{% if user.is_authenticated %}}
-    &lt;p&gt;Welcome, {{{{ user.username }}}}!&lt;/p&gt;
-{{% elif user.is_staff %}}
+  <pre><code class="language-django">{% if user.is_authenticated %}
+    &lt;p&gt;Welcome, {{ user.username }}!&lt;/p&gt;
+{% elif user.is_staff %}
     &lt;p&gt;Welcome, staff member!&lt;/p&gt;
-{{% else %}}
+{% else %}
     &lt;p&gt;Please log in.&lt;/p&gt;
-{{% endif %}}</code></pre>
+{% endif %}</code></pre>
 </div>
 
 <h3>Loops</h3>
@@ -242,15 +242,15 @@ def home(request):
     <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>template.html</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-django">{{% for task in tasks %}}
+  <pre><code class="language-django">{% for task in tasks %}
     &lt;div class=&quot;task&quot;&gt;
-        &lt;h3&gt;{{{{ task.title }}}}&lt;/h3&gt;
-        &lt;p&gt;{{{{ task.description }}}}&lt;/p&gt;
-        {{% if forloop.first %}}&lt;span&gt;First item!&lt;/span&gt;{{% endif %}}
+        &lt;h3&gt;{{ task.title }}&lt;/h3&gt;
+        &lt;p&gt;{{ task.description }}&lt;/p&gt;
+        {% if forloop.first %}&lt;span&gt;First item!&lt;/span&gt;{% endif %}
     &lt;/div&gt;
-{{% empty %}}
+{% empty %}
     &lt;p&gt;No tasks yet.&lt;/p&gt;
-{{% endfor %}}</code></pre>
+{% endfor %}</code></pre>
 </div>
 
 <h2>Template Inheritance</h2>
@@ -266,16 +266,16 @@ def home(request):
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;{{% block title %}}My Site{{% endblock %}}&lt;/title&gt;
+    &lt;title&gt;{% block title %}My Site{% endblock %}&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
     &lt;nav&gt;
-        &lt;a href=&quot;{{% url &#x27;home&#x27; %}}&quot;&gt;Home&lt;/a&gt;
-        &lt;a href=&quot;{{% url &#x27;about&#x27; %}}&quot;&gt;About&lt;/a&gt;
+        &lt;a href=&quot;{% url 'home' %}&quot;&gt;Home&lt;/a&gt;
+        &lt;a href=&quot;{% url 'about' %}&quot;&gt;About&lt;/a&gt;
     &lt;/nav&gt;
     &lt;main&gt;
-        {{% block content %}}
-        {{% endblock %}}
+        {% block content %}
+        {% endblock %}
     &lt;/main&gt;
     &lt;footer&gt;&amp;copy; 2026 My Site&lt;/footer&gt;
 &lt;/body&gt;
@@ -288,19 +288,19 @@ def home(request):
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-django">&lt;!-- templates/home.html --&gt;
-{{% extends &#x27;base.html&#x27; %}}
+{% extends 'base.html' %}
 
-{{% block title %}}Home{{% endblock %}}
+{% block title %}Home{% endblock %}
 
-{{% block content %}}
+{% block content %}
 &lt;h1&gt;Welcome Home&lt;/h1&gt;
 &lt;p&gt;This content replaces the block in base.html.&lt;/p&gt;
-{{% endblock %}}</code></pre>
+{% endblock %}</code></pre>
 </div>
 
 <h2>Useful Template Filters</h2>
 
-<table><thead><tr><th>Filter</th><th>What It Does</th><th>Example</th></tr></thead><tbody><tr><td><code>|date:"F d, Y"</code></td><td>Formats a date</td><td><code>{{{{ post.created|date:"F d, Y" }}}}</code> → March 15, 2026</td></tr><tr><td><code>|truncatewords:30</code></td><td>Truncates text to N words</td><td><code>{{{{ post.body|truncatewords:30 }}}}</code></td></tr><tr><td><code>|upper</code></td><td>Converts to uppercase</td><td><code>{{{{ name|upper }}}}</code> → DJANGO</td></tr><tr><td><code>|default:"N/A"</code></td><td>Shows default if value is empty</td><td><code>{{{{ bio|default:"No bio yet" }}}}</code></td></tr><tr><td><code>|length</code></td><td>Returns the length</td><td><code>{{{{ items|length }}}}</code> → 5</td></tr></tbody></table>
+<table><thead><tr><th>Filter</th><th>What It Does</th><th>Example</th></tr></thead><tbody><tr><td><code>|date:"F d, Y"</code></td><td>Formats a date</td><td><code>{{ post.created|date:"F d, Y" }}</code> → March 15, 2026</td></tr><tr><td><code>|truncatewords:30</code></td><td>Truncates text to N words</td><td><code>{{ post.body|truncatewords:30 }}</code></td></tr><tr><td><code>|upper</code></td><td>Converts to uppercase</td><td><code>{{ name|upper }}</code> → DJANGO</td></tr><tr><td><code>|default:"N/A"</code></td><td>Shows default if value is empty</td><td><code>{{ bio|default:"No bio yet" }}</code></td></tr><tr><td><code>|length</code></td><td>Returns the length</td><td><code>{{ items|length }}</code> → 5</td></tr></tbody></table>
 
 <div class="quiz-card">
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>

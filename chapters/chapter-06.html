@@ -160,7 +160,7 @@
   <pre><code class="language-python"># Get all posts
 posts = Post.objects.all()
 
-# This is a QuerySet — it&#x27;s lazy (doesn&#x27;t hit the DB until evaluated)
+# This is a QuerySet — it's lazy (doesn't hit the DB until evaluated)
 print(posts)  # &lt;QuerySet [&lt;Post: First Post&gt;, &lt;Post: Second Post&gt;]&gt;</code></pre>
 </div>
 
@@ -192,10 +192,10 @@ count = Post.objects.count()</code></pre>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
   <pre><code class="language-python"># Exact match
-Post.objects.filter(title=&#x27;My Post&#x27;)
+Post.objects.filter(title='My Post')
 
 # Case-insensitive contains
-Post.objects.filter(title__icontains=&#x27;django&#x27;)
+Post.objects.filter(title__icontains='django')
 
 # Greater than
 Post.objects.filter(created_at__year=2026)
@@ -207,11 +207,11 @@ Post.objects.filter(id__in=[1, 2, 3])
 Post.objects.exclude(is_published=False)
 
 # Chain filters
-Post.objects.filter(is_published=True).filter(author__username=&#x27;admin&#x27;)
+Post.objects.filter(is_published=True).filter(author__username='admin')
 
 # Ordering
-Post.objects.order_by(&#x27;-created_at&#x27;)   # Descending
-Post.objects.order_by(&#x27;title&#x27;)         # Ascending</code></pre>
+Post.objects.order_by('-created_at')   # Descending
+Post.objects.order_by('title')         # Ascending</code></pre>
 </div>
 
 <h3>Common Lookups</h3>
@@ -227,14 +227,14 @@ Post.objects.order_by(&#x27;title&#x27;)         # Ascending</code></pre>
   </div>
   <pre><code class="language-python"># Method 1: Create and save in one step
 post = Post.objects.create(
-    title=&#x27;New Post&#x27;,
-    body=&#x27;This is the content.&#x27;,
+    title='New Post',
+    body='This is the content.',
     author=user,
     is_published=True
 )
 
 # Method 2: Create, modify, then save
-post = Post(title=&#x27;Draft Post&#x27;, body=&#x27;Work in progress.&#x27;, author=user)
+post = Post(title='Draft Post', body='Work in progress.', author=user)
 post.is_published = False
 post.save()</code></pre>
 </div>
@@ -248,7 +248,7 @@ post.save()</code></pre>
   </div>
   <pre><code class="language-python"># Update a single object
 post = Post.objects.get(pk=1)
-post.title = &#x27;Updated Title&#x27;
+post.title = 'Updated Title'
 post.save()
 
 # Bulk update (more efficient for multiple records)

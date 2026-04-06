@@ -159,10 +159,10 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    avatar = models.ImageField(upload_to=&#x27;avatars/&#x27;, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True)
     
     def __str__(self):
-        return f&#x27;{{self.user.username}} Profile&#x27;</code></pre>
+        return f'{{self.user.username}} Profile'</code></pre>
 </div>
 
 <div class="code-block">
@@ -198,8 +198,8 @@ def save_profile(sender, instance, **kwargs):
 from django.apps import AppConfig
 
 class AccountsConfig(AppConfig):
-    default_auto_field = &#x27;django.db.models.BigAutoField&#x27;
-    name = &#x27;accounts&#x27;
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'accounts'
 
     def ready(self):
         import accounts.signals  # This connects the signals</code></pre>
@@ -231,7 +231,7 @@ class TaskManager(models.Manager):
 class Task(models.Model):
     title = models.CharField(max_length=200)
     is_complete = models.BooleanField(default=False)
-    owner = models.ForeignKey(&#x27;auth.User&#x27;, on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     objects = TaskManager()  # Replace default manager
 
@@ -256,7 +256,7 @@ Task.objects.for_user(request.user)  # Tasks for current user</code></pre>
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
   <div class="quiz-inner" data-answer="C">
-    <p class="quiz-question">Where should you import signals to ensure they&#x27;re connected?</p>
+    <p class="quiz-question">Where should you import signals to ensure they're connected?</p>
     <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>In models.py</span></div>
 <div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>In views.py</span></div>
 <div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>In the AppConfig.ready() method</span></div>

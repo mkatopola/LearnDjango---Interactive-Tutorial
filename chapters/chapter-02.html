@@ -178,22 +178,22 @@ User Request
 <div class="info-box"><strong>Common confusion:</strong> In Django, the <em>View</em> acts like the Controller in MVC, and the <em>Template</em> acts like the View in MVC. Don't let the naming trip you up!</div>
 
 <h2>The URL Dispatcher</h2>
-<p>Django's URL dispatcher is the traffic director. It maps URL patterns to view functions using the <code>urlpatterns</code> list in <code>urls.py</code>:</p>
+<p>Django's URL dispatcher is the traffic director. It maps URL patterns to view functions using the <code>urlpatterns</code> list in <code>helloworld/urls.py</code>:</p>
 
 <div class="code-block">
   <div class="code-header">
-    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>urls.py</span></div>
+    <div class="code-header-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>helloworld/urls.py</span></div>
     <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
   </div>
-  <pre><code class="language-python"># urls.py
+  <pre><code class="language-python"># helloworld/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path(&#x27;&#x27;, views.home, name=&#x27;home&#x27;),
-    path(&#x27;about/&#x27;, views.about, name=&#x27;about&#x27;),
-    path(&#x27;tasks/&#x27;, views.task_list, name=&#x27;task_list&#x27;),
-    path(&#x27;tasks/&lt;int:pk&gt;/&#x27;, views.task_detail, name=&#x27;task_detail&#x27;),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('tasks/', views.task_list, name='task_list'),
+    path('tasks/&lt;int:pk&gt;/', views.task_detail, name='task_detail'),
 ]</code></pre>
 </div>
 
@@ -208,7 +208,7 @@ urlpatterns = [
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
   <div class="quiz-inner" data-answer="B">
-    <p class="quiz-question">What does the &#x27;T&#x27; in MVT stand for?</p>
+    <p class="quiz-question">What does the 'T' in MVT stand for?</p>
     <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>Test</span></div>
 <div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>Template</span></div>
 <div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>Table</span></div>
@@ -224,7 +224,7 @@ urlpatterns = [
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
   <div class="quiz-inner" data-answer="C">
-    <p class="quiz-question">In Django&#x27;s MVT, which component is most like a Controller in MVC?</p>
+    <p class="quiz-question">In Django's MVT, which component is most like a Controller in MVC?</p>
     <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>Model</span></div>
 <div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>Template</span></div>
 <div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>View</span></div>

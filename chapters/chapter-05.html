@@ -165,7 +165,7 @@ class Post(models.Model):
         return self.title
 
     class Meta:
-        ordering = [&#x27;-created_at&#x27;]</code></pre>
+        ordering = ['-created_at']</code></pre>
 </div>
 
 <h2>Common Field Types</h2>
@@ -213,7 +213,7 @@ python manage.py migrate</code></pre>
     def __str__(self):
         return self.title
     
-    # Without __str__, you&#x27;d see: &lt;Post: Post object (1)&gt;
+    # Without __str__, you'd see: &lt;Post: Post object (1)&gt;
     # With __str__, you see: &lt;Post: My First Blog Post&gt;</code></pre>
 </div>
 
@@ -230,17 +230,17 @@ python manage.py migrate</code></pre>
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = [&#x27;-created_at&#x27;]       # Default ordering (newest first)
-        verbose_name = &#x27;blog post&#x27;       # Human-readable name
-        verbose_name_plural = &#x27;blog posts&#x27;
-        db_table = &#x27;blog_posts&#x27;          # Custom table name</code></pre>
+        ordering = ['-created_at']       # Default ordering (newest first)
+        verbose_name = 'blog post'       # Human-readable name
+        verbose_name_plural = 'blog posts'
+        db_table = 'blog_posts'          # Custom table name</code></pre>
 </div>
 
 <div class="quiz-card">
   <div class="quiz-header"><div class="quiz-icon">?</div><h3>It's time to take a quiz!</h3></div>
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
   <div class="quiz-inner" data-answer="B">
-    <p class="quiz-question">Which field type would you use for a blog post&#x27;s main content?</p>
+    <p class="quiz-question">Which field type would you use for a blog post's main content?</p>
     <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>CharField</span></div>
 <div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>TextField</span></div>
 <div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>SlugField</span></div>
