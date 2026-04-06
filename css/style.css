@@ -458,34 +458,6 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-on-dark);
 }
 
-.code-file-structure {
-  padding: 12px 16px;
-  background: #0f141a;
-  border-bottom: 1px solid #30363d;
-  color: #8b949e;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.code-file-structure strong {
-  display: block;
-  margin-bottom: 6px;
-  color: #c9d1d9;
-}
-.code-file-structure pre {
-  margin: 0;
-  background: transparent;
-  border: none;
-  padding: 0;
-  white-space: pre;
-}
-.code-file-structure code {
-  display: block;
-  font-family: var(--font-mono);
-  color: inherit;
-  border: none;
-}
-
 /* ===== Tables ===== */
 .chapter-content table {
   width: 100%;

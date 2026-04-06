@@ -105,9 +105,8 @@ document.addEventListener('keydown', e => {
 // ===== Copy Code =====
 function copyCode(btn) {
   const block = btn.closest('.code-block');
-  const codes = block.querySelectorAll('pre code');
-  const code = codes[codes.length - 1] || block.querySelector('code');
-  const text = code ? code.textContent : '';
+  const code = block.querySelector('code');
+  const text = code.textContent;
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.innerHTML;
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
@@ -121,32 +120,60 @@ function insertCodeFileStructureSnippets() {
     const span = block.querySelector('.code-header-left span');
     if (!span) return;
     const label = span.textContent.trim();
+
+    if (label.toLowerCase() === 'terminal' || label.toLowerCase() === 'usage' || label === 'template.html') {
+      // Skip showing structure for terminal commands, usage examples, and generic template examples
+      return;
+    }
+
     const wrapper = document.createElement('div');
     wrapper.className = 'code-file-structure';
 
-    if (label.toLowerCase() === 'terminal' || label.toLowerCase() === 'usage') {
-      const strong = document.createElement('strong');
-      strong.textContent = 'Context:';
-      wrapper.appendChild(strong);
-      wrapper.appendChild(document.createTextNode(' Terminal command'));
-    } else {
-      const strong = document.createElement('strong');
-      strong.textContent = 'File structure:';
-      wrapper.appendChild(strong);
+    const strong = document.createElement('strong');
+    strong.textContent = 'Full project structure:';
+    wrapper.appendChild(strong);
 
-      const pre = document.createElement('pre');
-      const code = document.createElement('code');
-      const parts = label.split('/');
-      const lines = ['project/'];
-      let indent = '  ';
-      parts.forEach(part => {
-        lines.push(indent + part);
-        indent += '  ';
-      });
-      code.textContent = lines.join('\n');
-      pre.appendChild(code);
-      wrapper.appendChild(pre);
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    const parts = label.split('/');
+    let appName = '';
+    let fileName = '';
+    if (parts.length === 1) {
+      fileName = parts[0];
+    } else {
+      appName = parts[0];
+      fileName = parts[1];
     }
+    const lines = ['project/', '  manage.py', '  project/', '    __init__.py', '    settings.py', '    urls.py', '    wsgi.py'];
+    if (appName) {
+      lines.push('  ' + appName + '/');
+      lines.push('    __init__.py');
+      lines.push('    views.py');
+      lines.push('    urls.py');
+      lines.push('    models.py');
+      lines.push('    admin.py');
+      lines.push('    apps.py');
+      lines.push('    tests.py');
+      // Highlight the current file
+      const fileIndex = lines.findIndex(line => line.trim() === fileName);
+      if (fileIndex !== -1) {
+        lines[fileIndex] += '  <-- current file';
+      }
+    } else {
+      // Project level files
+      const fileMap = {
+        'settings.py': 4,
+        'urls.py': 5,
+        'wsgi.py': 6,
+        '__init__.py': 3
+      };
+      if (fileMap[fileName] !== undefined) {
+        lines[fileMap[fileName]] += '  <-- current file';
+      }
+    }
+    code.textContent = lines.join('\n');
+    pre.appendChild(code);
+    wrapper.appendChild(pre);
 
     const preTag = block.querySelector('pre');
     if (preTag) block.insertBefore(wrapper, preTag);
