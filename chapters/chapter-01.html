@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Getting Started — Setting Up Django | LearnDjango</title>
 <meta name="description" content="Learn Django step by step — Getting Started — Setting Up Django">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/django.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
-<script src="../js/app.js"></script>
+<script src="/js/app.js"></script>
 </head>
 <body>
 <header class="global-header">
   <div class="header-inner">
-    <a href="../index.html" class="header-logo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#092E20"/><path d="M17.5 6h3.2v14.4c-1.6.3-2.8.4-4.1.4-3.8 0-5.8-1.7-5.8-5 0-3.1 2.1-5.2 5.4-5.2.6 0 1 .1 1.3.2V6zm0 7.4c-.3-.1-.6-.2-1-.2-1.6 0-2.5 1-2.5 2.6 0 1.7.9 2.6 2.6 2.6.3 0 .6 0 .9-.1v-4.9zM24 22.5c0 2-1.3 3-3.8 3-1.2 0-2.2-.2-3-.5v-2.6c.8.4 1.8.6 2.6.6 1 0 1.4-.3 1.4-.9 0-.5-.5-.8-1.6-1.2-2-.8-2.6-1.6-2.6-3 0-1.9 1.3-3 3.6-3 1 0 1.8.2 2.4.4v2.5c-.7-.3-1.6-.5-2.3-.5-.9 0-1.2.3-1.2.8 0 .4.4.7 1.6 1.2 1.8.7 2.4 1.4 2.4 2.8z" fill="#fff" opacity=".3"/><path d="M10.2 9.6h3.2v10.8c0 2.9-.4 4.3-1.7 5.5-1.2 1.1-2.8 1.5-4.4 1.5l-.5-2.7c1.1-.2 2-.6 2.6-1.2.6-.6.8-1.3.8-2.9V9.6z" fill="#44B78B"/><circle cx="11.8" cy="7.2" r="1.9" fill="#44B78B"/></svg><span class="header-logo-text">LearnDjango</span></a>
+    <a href="/index.html" class="header-logo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#092E20"/><path d="M17.5 6h3.2v14.4c-1.6.3-2.8.4-4.1.4-3.8 0-5.8-1.7-5.8-5 0-3.1 2.1-5.2 5.4-5.2.6 0 1 .1 1.3.2V6zm0 7.4c-.3-.1-.6-.2-1-.2-1.6 0-2.5 1-2.5 2.6 0 1.7.9 2.6 2.6 2.6.3 0 .6 0 .9-.1v-4.9zM24 22.5c0 2-1.3 3-3.8 3-1.2 0-2.2-.2-3-.5v-2.6c.8.4 1.8.6 2.6.6 1 0 1.4-.3 1.4-.9 0-.5-.5-.8-1.6-1.2-2-.8-2.6-1.6-2.6-3 0-1.9 1.3-3 3.6-3 1 0 1.8.2 2.4.4v2.5c-.7-.3-1.6-.5-2.3-.5-.9 0-1.2.3-1.2.8 0 .4.4.7 1.6 1.2 1.8.7 2.4 1.4 2.4 2.8z" fill="#fff" opacity=".3"/><path d="M10.2 9.6h3.2v10.8c0 2.9-.4 4.3-1.7 5.5-1.2 1.1-2.8 1.5-4.4 1.5l-.5-2.7c1.1-.2 2-.6 2.6-1.2.6-.6.8-1.3.8-2.9V9.6z" fill="#44B78B"/><circle cx="11.8" cy="7.2" r="1.9" fill="#44B78B"/></svg><span class="header-logo-text">LearnDjango</span></a>
     <div class="header-actions">
       <a href="https://github.com/django/django" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
@@ -37,87 +37,87 @@
       <h3>Course Chapters</h3><span class="dropdown-progress">0/16 Chapters Complete</span>
       <button class="dropdown-close" onclick="closeDropdown()" aria-label="Close">&times;</button>
     </div>
-    <div class="chapter-grid"><a href="intro.html" class="chapter-grid-item " data-chapter="intro">
+    <div class="chapter-grid"><a href="/chapters/intro.html" class="chapter-grid-item " data-chapter="intro">
   <div class="chapter-grid-number">i</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Intro</div><div class="chapter-grid-title">Overview &amp; Prerequisites</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-01.html" class="chapter-grid-item active" data-chapter="ch01">
+<a href="/chapters/chapter-01.html" class="chapter-grid-item active" data-chapter="ch01">
   <div class="chapter-grid-number">1</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 1</div><div class="chapter-grid-title">Getting Started — Setting Up Django</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-02.html" class="chapter-grid-item " data-chapter="ch02">
+<a href="/chapters/chapter-02.html" class="chapter-grid-item " data-chapter="ch02">
   <div class="chapter-grid-number">2</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 2</div><div class="chapter-grid-title">Understanding MVT Architecture</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-03.html" class="chapter-grid-item " data-chapter="ch03">
+<a href="/chapters/chapter-03.html" class="chapter-grid-item " data-chapter="ch03">
   <div class="chapter-grid-number">3</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 3</div><div class="chapter-grid-title">Your First Views and URLs</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-04.html" class="chapter-grid-item " data-chapter="ch04">
+<a href="/chapters/chapter-04.html" class="chapter-grid-item " data-chapter="ch04">
   <div class="chapter-grid-number">4</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 4</div><div class="chapter-grid-title">Working with Templates</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-05.html" class="chapter-grid-item " data-chapter="ch05">
+<a href="/chapters/chapter-05.html" class="chapter-grid-item " data-chapter="ch05">
   <div class="chapter-grid-number">5</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 5</div><div class="chapter-grid-title">Models and the Database</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-06.html" class="chapter-grid-item " data-chapter="ch06">
+<a href="/chapters/chapter-06.html" class="chapter-grid-item " data-chapter="ch06">
   <div class="chapter-grid-number">6</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 6</div><div class="chapter-grid-title">The Django ORM</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-07.html" class="chapter-grid-item " data-chapter="ch07">
+<a href="/chapters/chapter-07.html" class="chapter-grid-item " data-chapter="ch07">
   <div class="chapter-grid-number">7</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 7</div><div class="chapter-grid-title">Django Admin Panel</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-08.html" class="chapter-grid-item " data-chapter="ch08">
+<a href="/chapters/chapter-08.html" class="chapter-grid-item " data-chapter="ch08">
   <div class="chapter-grid-number">8</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 8</div><div class="chapter-grid-title">Forms and User Input</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-09.html" class="chapter-grid-item " data-chapter="ch09">
+<a href="/chapters/chapter-09.html" class="chapter-grid-item " data-chapter="ch09">
   <div class="chapter-grid-number">9</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 9</div><div class="chapter-grid-title">User Authentication</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-10.html" class="chapter-grid-item " data-chapter="ch10">
+<a href="/chapters/chapter-10.html" class="chapter-grid-item " data-chapter="ch10">
   <div class="chapter-grid-number">10</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 10</div><div class="chapter-grid-title">Full CRUD Operations</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-11.html" class="chapter-grid-item " data-chapter="ch11">
+<a href="/chapters/chapter-11.html" class="chapter-grid-item " data-chapter="ch11">
   <div class="chapter-grid-number">11</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 11</div><div class="chapter-grid-title">Static Files and Media Uploads</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-12.html" class="chapter-grid-item " data-chapter="ch12">
+<a href="/chapters/chapter-12.html" class="chapter-grid-item " data-chapter="ch12">
   <div class="chapter-grid-number">12</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 12</div><div class="chapter-grid-title">Class-Based Views</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-13.html" class="chapter-grid-item " data-chapter="ch13">
+<a href="/chapters/chapter-13.html" class="chapter-grid-item " data-chapter="ch13">
   <div class="chapter-grid-number">13</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 13</div><div class="chapter-grid-title">Django REST Framework — Building APIs</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-14.html" class="chapter-grid-item " data-chapter="ch14">
+<a href="/chapters/chapter-14.html" class="chapter-grid-item " data-chapter="ch14">
   <div class="chapter-grid-number">14</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 14</div><div class="chapter-grid-title">API Authentication &amp; Permissions</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-15.html" class="chapter-grid-item " data-chapter="ch15">
+<a href="/chapters/chapter-15.html" class="chapter-grid-item " data-chapter="ch15">
   <div class="chapter-grid-number">15</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 15</div><div class="chapter-grid-title">Signals and Custom Managers</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
 </a>
-<a href="chapter-16.html" class="chapter-grid-item " data-chapter="ch16">
+<a href="/chapters/chapter-16.html" class="chapter-grid-item " data-chapter="ch16">
   <div class="chapter-grid-number">16</div>
   <div class="chapter-grid-info"><div class="chapter-grid-label">Chapter 16</div><div class="chapter-grid-title">Deployment to Production</div></div>
   <svg class="chapter-grid-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -300,10 +300,10 @@ venv\Scripts\activate
   <p class="quiz-subtitle">Test your knowledge and see what you've just learned.</p>
   <div class="quiz-inner" data-answer="C">
     <p class="quiz-question">Where is the URL routing configuration defined in a new Django project?</p>
-    <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>settings.py</span></div>
-<div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>manage.py</span></div>
-<div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>urls.py</span></div>
-<div class="quiz-option" data-value="D" onclick="selectOption(this)"><span class="quiz-option-letter">D</span><span>wsgi.py</span></div>
+    <div class="quiz-options"><div class="quiz-option" data-value="A" onclick="selectOption(this)"><span class="quiz-option-letter">A</span><span>/settings.py</span></div>
+<div class="quiz-option" data-value="B" onclick="selectOption(this)"><span class="quiz-option-letter">B</span><span>/manage.py</span></div>
+<div class="quiz-option" data-value="C" onclick="selectOption(this)"><span class="quiz-option-letter">C</span><span>/urls.py</span></div>
+<div class="quiz-option" data-value="D" onclick="selectOption(this)"><span class="quiz-option-letter">D</span><span>/wsgi.py</span></div>
 </div>
     <button class="quiz-check-btn" onclick="checkQuiz(this)">Check Answer</button>
     <div class="quiz-feedback quiz-feedback-correct">✓ Correct! Well done.</div>
@@ -315,8 +315,8 @@ venv\Scripts\activate
   <div class="completion-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
   <h3>Chapter Complete!</h3>
   <p>You've finished this chapter. Keep up the great work!</p>
-  <a href="chapter-02.html" class="next-chapter-btn" onclick="markComplete('ch01')">Next Chapter →</a>
-  <br><a href="intro.html" class="prev-chapter-link">← Overview &amp; Prerequisites</a>
+  <a href="/chapters/chapter-02.html" class="next-chapter-btn" onclick="markComplete('ch01')">Next Chapter →</a>
+  <br><a href="/chapters/intro.html" class="prev-chapter-link">← Overview &amp; Prerequisites</a>
 </div>
 </main>
 <footer class="global-footer">&copy; 2026 LearnDjango Tutorial. Built for learning purposes. Django is a registered trademark of the Django Software Foundation.</footer>
