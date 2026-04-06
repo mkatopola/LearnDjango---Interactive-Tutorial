@@ -144,7 +144,7 @@ function insertCodeFileStructureSnippets() {
       appName = parts[0];
       fileName = parts[1];
     }
-    const lines = ['project/', '  manage.py', '  project/', '    __init__.py', '    settings.py', '    urls.py', '    wsgi.py'];
+    const lines = ['helloworld/', '  manage.py', '  helloworld/', '    __init__.py', '    settings.py', '    urls.py', '    wsgi.py'];
     if (appName) {
       lines.push('  ' + appName + '/');
       lines.push('    __init__.py');
